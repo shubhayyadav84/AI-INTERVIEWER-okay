@@ -14,3 +14,16 @@
 .dark .glow-text-green {
   animation: text-glow-pulse-dark 4s infinite ease-in-out;
 }
+
+/* Enable hover effects on touch devices */
+@media (hover: hover) {
+  /* Desktop: standard hover effects */
+}
+
+@media (hover: none) {
+  /* Mobile: enable focus and active states to show hover-like effects */
+  button:focus-visible,
+  a:focus-visible {
+    outline: none;
+  }
+}

@@ -138,7 +138,7 @@ function Home() {
                 transition={{ duration: 0.6 }}
                 whileHover={{ scale: 1.05 }}
                 className={`relative bg-white dark:bg-[#1c1c1e] rounded-3xl border-2 border-green-100/50 dark:border-green-950/40
-                p-6 sm:p-10 w-full sm:w-80 max-w-sm shadow-md hover:border-green-500 dark:hover:border-green-500 dark:hover:shadow-[0_0_30px_rgba(34,197,94,0.25)] active:border-green-400 active:shadow-lg transition-all duration-300 cursor-pointer select-none
+                p-6 sm:p-10 w-full sm:w-80 max-w-sm shadow-md hover:border-green-500 dark:hover:border-green-500 dark:hover:shadow-[0_0_30px_rgba(34,197,94,0.25)] focus-within:border-green-500 dark:focus-within:border-green-500 dark:focus-within:shadow-[0_0_30px_rgba(34,197,94,0.25)] active:border-green-400 active:shadow-lg transition-all duration-300 cursor-pointer select-none
                 ${index === 0 ? "rotate-0 sm:-rotate-2 md:-rotate-3" : ""}
                 ${index === 1 ? "rotate-0 sm:rotate-1 md:rotate-2 md:-mt-6" : ""}
                 ${index === 2 ? "rotate-0 sm:-rotate-1 md:-rotate-2" : ""}`}
@@ -188,7 +188,7 @@ function Home() {
                 <motion.div
                   key={index}
                   whileHover={{ y: -6 }}
-                  className="bg-white dark:bg-[#1c1c1e] rounded-3xl p-4 sm:p-6 shadow-md flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 border border-gray-100 dark:border-gray-800 hover:border-green-400 dark:hover:border-green-500 dark:hover:shadow-[0_0_25px_rgba(34,197,94,0.2)] active:border-green-300 active:shadow-lg transition-all duration-300 cursor-pointer select-none"
+                  className="bg-white dark:bg-[#1c1c1e] rounded-3xl p-4 sm:p-6 shadow-md flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 border border-gray-100 dark:border-gray-800 hover:border-green-400 dark:hover:border-green-500 dark:hover:shadow-[0_0_25px_rgba(34,197,94,0.2)] focus-within:border-green-400 dark:focus-within:border-green-500 dark:focus-within:shadow-[0_0_25px_rgba(34,197,94,0.2)] active:border-green-300 active:shadow-lg transition-all duration-300 cursor-pointer select-none"
                 >
                   <img
                     src={item.image}
@@ -238,7 +238,7 @@ function Home() {
                 <motion.div
                   key={index}
                   whileHover={{ scale: 1.02 }}
-                  className="bg-white dark:bg-[#1c1c1e] rounded-3xl p-4 sm:p-6 shadow-md flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 border border-gray-100 dark:border-gray-800 hover:border-green-400 dark:hover:border-green-500 dark:hover:shadow-[0_0_25px_rgba(34,197,94,0.2)] active:border-green-300 active:shadow-lg transition-all duration-300 cursor-pointer select-none"
+                  className="bg-white dark:bg-[#1c1c1e] rounded-3xl p-4 sm:p-6 shadow-md flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 border border-gray-100 dark:border-gray-800 hover:border-green-400 dark:hover:border-green-500 dark:hover:shadow-[0_0_25px_rgba(34,197,94,0.2)] focus-within:border-green-400 dark:focus-within:border-green-500 dark:focus-within:shadow-[0_0_25px_rgba(34,197,94,0.2)] active:border-green-300 active:shadow-lg transition-all duration-300 cursor-pointer select-none"
                 >
                   <div className="flex-1">
                     <h3 className="font-semibold text-lg sm:text-xl dark:text-white">{item.title}</h3>
