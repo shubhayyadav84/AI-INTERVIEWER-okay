@@ -1,5 +1,9 @@
+import { createRequire } from "node:module"
 import { askAi } from "../services/openrouterservice.js"
 import * as Interview from "../db/interviewRepository.js"
+
+const require = createRequire(import.meta.url)
+const pdfParse = require("pdf-parse")
 
 export const analyzeResume = async (req, res) => {
     try {
@@ -7,16 +11,12 @@ export const analyzeResume = async (req, res) => {
             return res.status(400).json({ message: "Resume required" })
         }
 
-        const uint8Array = new Uint8Array(req.file.buffer)
+        const { text: resumeText } = await pdfParse(Buffer.from(req.file.buffer))
 
-        const pdfjsLib = await import("pdfjs-dist/legacy/build/pdf.mjs")
-        const pdf = await pdfjsLib.getDocument({ data: uint8Array }).promise
-        let resumeText = ""
-
-        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-            const page = await pdf.getPage(pageNum)
-            const content = await page.getTextContent()
-            resumeText += content.items.map((item) => item.str).join(" ")
+        if (!resumeText?.trim()) {
+            return res.status(400).json({
+                message: "Could not read text from PDF. Try a text-based resume (not a scanned image).",
+            })
         }
 
         const messages = [

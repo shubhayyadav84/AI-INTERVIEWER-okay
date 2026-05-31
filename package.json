@@ -17,7 +17,7 @@
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "multer": "^2.1.1",
-    "pdfjs-dist": "^6.0.227",
+    "pdf-parse": "^1.1.4",
     "razorpay": "^2.9.6"
   }
 }
