@@ -1,4 +1,3 @@
-import fs from "fs"
 import { askAi } from "../services/openrouterservice.js"
 import * as Interview from "../db/interviewRepository.js"
 
@@ -8,9 +7,7 @@ export const analyzeResume = async (req, res) => {
             return res.status(400).json({ message: "Resume required" })
         }
 
-        const filepath = req.file.path
-        const fileBuffer = await fs.promises.readFile(filepath)
-        const uint8Array = new Uint8Array(fileBuffer)
+        const uint8Array = new Uint8Array(req.file.buffer)
 
         const pdfjsLib = await import("pdfjs-dist/legacy/build/pdf.mjs")
         const pdf = await pdfjsLib.getDocument({ data: uint8Array }).promise
@@ -51,7 +48,6 @@ Return strictly JSON:
         }
 
         const parsed = JSON.parse(cleanResponse)
-        fs.unlinkSync(filepath)
 
         res.json({
             role: parsed.role,
@@ -62,9 +58,6 @@ Return strictly JSON:
         })
     } catch (error) {
         console.error(error)
-        if (req.file && fs.existsSync(req.file.path)) {
-            fs.unlinkSync(req.file.path)
-        }
         res.status(500).json({ message: error.message })
     }
 }
