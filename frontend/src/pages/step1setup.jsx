@@ -184,7 +184,7 @@ function Step1SetUp({ setStep, setInterviewData }) {
                         handleAnalyzeResume();
                       }}
                       disabled={analyzing}
-                      className="bg-[#24292e] dark:bg-white dark:text-black hover:bg-[#1a1e22] dark:hover:bg-gray-150 py-1.5 px-6 rounded-lg text-xs font-bold shadow transition duration-200 cursor-pointer disabled:opacity-50"
+                      className="mt-1 bg-green-500 hover:bg-green-600 active:bg-green-700 text-white py-2.5 px-8 rounded-full text-sm font-bold shadow-md shadow-green-500/30 transition duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                     >
                       {analyzing ? "Analyzing..." : "Analyze Resume"}
                     </button>
