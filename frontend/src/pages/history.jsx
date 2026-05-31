@@ -4,6 +4,10 @@ import axios from "axios";
 import { serverurl } from "../App";
 import { FaArrowLeft } from "react-icons/fa";
 import Footer from "../assets/components/footer";
+import {
+  formatPerformanceScore,
+  getOverallPerformanceFromInterview,
+} from "../utils/performanceScore";
 
 function HistoryPage() {
   const [history, setHistory] = useState([]);
@@ -34,19 +38,6 @@ function HistoryPage() {
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
-  };
-
-  const normalizeScore = (score) => {
-    if (!score) return 1;
-    const num = Number(score);
-    if (isNaN(num)) return 1;
-    let normalized = num;
-    if (num > 10) {
-      normalized = Math.round(num / 10);
-    } else {
-      normalized = Math.round(num);
-    }
-    return normalized < 1 ? 1 : normalized;
   };
 
   const getSubText = (item) => {
@@ -121,7 +112,9 @@ function HistoryPage() {
                       {/* Score section */}
                       <div className="text-right min-w-[80px]">
                         <span className="text-2xl font-extrabold text-gray-850 dark:text-gray-200">
-                          {isCompleted ? `${normalizeScore(item.overallScore)}/10` : "0/10"}
+                          {isCompleted
+                            ? `${formatPerformanceScore(getOverallPerformanceFromInterview(item))}/10`
+                            : "0/10"}
                         </span>
                         <p className="text-[10px] text-gray-400 dark:text-gray-550 font-bold uppercase tracking-wider mt-0.5">
                           Overall Score

@@ -1,6 +1,7 @@
 import { createRequire } from "node:module"
 import { askAi } from "../services/openrouterservice.js"
 import * as Interview from "../db/interviewRepository.js"
+import { calculateAveragePerformance } from "../utils/performanceScore.js"
 
 const require = createRequire(import.meta.url)
 const pdfParse = require("pdf-parse")
@@ -170,9 +171,8 @@ ${interview.questions
     )
     .join("\n\n")}
 
-Return strictly JSON:
+Return strictly JSON (overallScore is computed server-side from question scores — omit or ignore):
 {
-  "overallScore": 7,
   "confidence": 6.4,
   "communication": 7.0,
   "correctness": 7.6,
@@ -193,6 +193,11 @@ Return strictly JSON:
                     .trim()
             }
             overallData = JSON.parse(cleanOverall)
+
+            const questionScores = interview.questions.map((q, i) =>
+                i === currentIndex ? parsedEval.score : q.score
+            )
+            overallData.overallScore = calculateAveragePerformance(questionScores)
         }
 
         const updated = await Interview.updateQuestionAndInterview(

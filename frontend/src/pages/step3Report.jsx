@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
+import {
+  formatPerformanceScore,
+  getOverallPerformanceFromInterview,
+} from "../utils/performanceScore";
 
 function Step3Report({ interviewData }) {
   const navigate = useNavigate();
@@ -92,7 +96,8 @@ function Step3Report({ interviewData }) {
   const areaPath = getCurvePath(points, true);
 
   // Radial Gauge Calculations
-  const overallScore = normalizeScore(interviewData.overallScore);
+  const overallScore = getOverallPerformanceFromInterview(interviewData);
+  const overallScoreLabel = formatPerformanceScore(overallScore);
   const radius = 40;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (overallScore / 10) * circumference;
@@ -206,7 +211,7 @@ function Step3Report({ interviewData }) {
                   />
                 </svg>
                 <div className="absolute text-2xl font-black text-green-600">
-                  {overallScore}/10
+                  {overallScoreLabel}/10
                 </div>
               </div>
 
@@ -461,7 +466,7 @@ function Step3Report({ interviewData }) {
             Final Score
           </span>
           <span style={{ fontSize: "36px", fontWeight: "800", color: "#22c55e" }}>
-            {overallScore}/10
+            {overallScoreLabel}/10
           </span>
         </div>
 
