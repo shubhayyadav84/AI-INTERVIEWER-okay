@@ -5,8 +5,9 @@ import { FaUserTie, FaMicrophoneAlt, FaChartLine, FaArrowRight, FaVolumeUp } fro
 import axios from "axios";
 import { serverurl } from "../App";
 
-import maleVideo from "../assets/male-ai.mp4";
-import femaleVideo from "../assets/female-ai.mp4";
+// Filenames are reversed: male content is in female-ai.mp4 and vice versa
+import maleVideo from "../assets/female-ai.mp4";
+import femaleVideo from "../assets/male-ai.mp4";
 
 // Setup Web Speech API Speech Recognition
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -31,6 +32,7 @@ function Step2Interview({ setStep, interviewData, setInterviewData }) {
   const [listening, setListening] = useState(false);
 
   const videoRef = useRef(null);
+  const selectedGenderRef = useRef("");
 
   // Initialize Speech Recognition callbacks
   useEffect(() => {
@@ -71,54 +73,98 @@ function Step2Interview({ setStep, interviewData, setInterviewData }) {
     };
   }, []);
 
+  const getVideoForGender = (gender) => (gender === "male" ? maleVideo : femaleVideo);
+
   const pickVoice = (gender, voices) => {
+    if (!voices?.length) return null;
+
+    const maleNames = [
+      "Microsoft David",
+      "Microsoft Mark",
+      "Google UK English Male",
+      "Google US English Male",
+    ];
+    const femaleNames = [
+      "Microsoft Zira",
+      "Microsoft Jenny",
+      "Google UK English Female",
+      "Google US English Female",
+    ];
+
+    const pickFromList = (list) => {
+      for (const name of list) {
+        const match = voices.find((v) => v.name.includes(name));
+        if (match) return match;
+      }
+      return null;
+    };
+
     if (gender === "male") {
       return (
-        voices.find((v) => /david|guy|mark|male/i.test(v.name)) ||
-        voices.find((v) => v.name.toLowerCase().includes("male") && !v.name.toLowerCase().includes("female"))
+        pickFromList(maleNames) ||
+        voices.find(
+          (v) =>
+            /male|david|mark|guy/i.test(v.name) && !/female|zira|jenny|samantha/i.test(v.name)
+        )
       );
     }
     return (
-      voices.find((v) => /zira|samantha|jenny|aria|female/i.test(v.name)) ||
-      voices.find((v) => v.name.toLowerCase().includes("female"))
+      pickFromList(femaleNames) ||
+      voices.find((v) => /female|zira|jenny|samantha|aria/i.test(v.name))
     );
   };
 
-  // gender param avoids stale state on first question after avatar select
-  const speakQuestion = (text, gender = selectedGender) => {
+  const speakQuestion = (text, gender) => {
+    const g = gender ?? selectedGenderRef.current ?? selectedGender;
     window.speechSynthesis.cancel();
 
-    const utterance = new SpeechSynthesisUtterance(text);
+    const runSpeak = () => {
+      const voices = window.speechSynthesis.getVoices();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "en-US";
+
+      const voice = pickVoice(g, voices);
+      if (voice) utterance.voice = voice;
+
+      if (g === "male") {
+        utterance.pitch = 0.8;
+        utterance.rate = 0.95;
+      } else if (g === "female") {
+        utterance.pitch = 1.15;
+        utterance.rate = 1.0;
+      }
+
+      utterance.onstart = () => {
+        setStatus("AI Speaking");
+        if (videoRef.current) {
+          videoRef.current.muted = true;
+          videoRef.current.volume = 0;
+          videoRef.current.src = getVideoForGender(g);
+          videoRef.current.play().catch((err) => console.log(err));
+        }
+      };
+
+      utterance.onend = () => {
+        setStatus("Listening...");
+        if (videoRef.current) {
+          videoRef.current.pause();
+          videoRef.current.currentTime = 0;
+        }
+        startSTT();
+      };
+
+      window.speechSynthesis.speak(utterance);
+    };
+
     const voices = window.speechSynthesis.getVoices();
-    const voice = pickVoice(gender, voices);
-
-    if (voice) {
-      utterance.voice = voice;
+    if (voices.length > 0) {
+      runSpeak();
+    } else {
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.onvoiceschanged = null;
+        runSpeak();
+      };
     }
-    if (gender === "male") {
-      utterance.pitch = 0.85;
-    } else if (gender === "female") {
-      utterance.pitch = 1.1;
-    }
-
-    utterance.onstart = () => {
-      setStatus("AI Speaking");
-      if (videoRef.current) {
-        videoRef.current.play().catch((err) => console.log(err));
-      }
-    };
-
-    utterance.onend = () => {
-      setStatus("Listening...");
-      if (videoRef.current) {
-        videoRef.current.pause();
-        videoRef.current.currentTime = 0;
-      }
-      // Auto-trigger microphone listening after TTS ends
-      startSTT();
-    };
-
-    window.speechSynthesis.speak(utterance);
   };
 
   // Start Speech-To-Text
@@ -172,6 +218,7 @@ function Step2Interview({ setStep, interviewData, setInterviewData }) {
 
   // Handle Interviewer selection
   const handleSelectInterviewer = async (gender) => {
+    selectedGenderRef.current = gender;
     setSelectedGender(gender);
     setPhase("loading");
 
@@ -358,7 +405,7 @@ function Step2Interview({ setStep, interviewData, setInterviewData }) {
           <div className="w-full bg-slate-900 rounded-2xl overflow-hidden shadow-inner aspect-video relative">
             <video
               ref={videoRef}
-              src={selectedGender === "male" ? maleVideo : femaleVideo}
+              src={getVideoForGender(selectedGender)}
               loop
               muted
               playsInline
