@@ -62,34 +62,43 @@ function Step2Interview({ setStep, interviewData, setInterviewData }) {
     };
   }, []);
 
-  // Text-To-Speech (TTS) synthesizer function
-  const speakQuestion = (text) => {
-    // Cancel any ongoing speech
+  useEffect(() => {
+    const loadVoices = () => window.speechSynthesis.getVoices();
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+    return () => {
+      window.speechSynthesis.onvoiceschanged = null;
+    };
+  }, []);
+
+  const pickVoice = (gender, voices) => {
+    if (gender === "male") {
+      return (
+        voices.find((v) => /david|guy|mark|male/i.test(v.name)) ||
+        voices.find((v) => v.name.toLowerCase().includes("male") && !v.name.toLowerCase().includes("female"))
+      );
+    }
+    return (
+      voices.find((v) => /zira|samantha|jenny|aria|female/i.test(v.name)) ||
+      voices.find((v) => v.name.toLowerCase().includes("female"))
+    );
+  };
+
+  // gender param avoids stale state on first question after avatar select
+  const speakQuestion = (text, gender = selectedGender) => {
     window.speechSynthesis.cancel();
 
     const utterance = new SpeechSynthesisUtterance(text);
     const voices = window.speechSynthesis.getVoices();
-    
-    // Choose gender voice fallback
-    let voice = null;
-    if (selectedGender === "male") {
-      voice = voices.find(
-        (v) =>
-          v.name.toLowerCase().includes("google uk english male") ||
-          v.name.toLowerCase().includes("microsoft david") ||
-          v.name.toLowerCase().includes("male")
-      );
-    } else {
-      voice = voices.find(
-        (v) =>
-          v.name.toLowerCase().includes("google uk english female") ||
-          v.name.toLowerCase().includes("microsoft zira") ||
-          v.name.toLowerCase().includes("female")
-      );
-    }
+    const voice = pickVoice(gender, voices);
 
     if (voice) {
       utterance.voice = voice;
+    }
+    if (gender === "male") {
+      utterance.pitch = 0.85;
+    } else if (gender === "female") {
+      utterance.pitch = 1.1;
     }
 
     utterance.onstart = () => {
@@ -184,8 +193,8 @@ function Step2Interview({ setStep, interviewData, setInterviewData }) {
 
       // Start speaking the first question after a brief delay
       setTimeout(() => {
-        speakQuestion(res.data.questions[0].questionText);
-      }, 8000);
+        speakQuestion(res.data.questions[0].questionText, gender);
+      }, 800);
     } catch (error) {
       console.error(error);
       alert(error.response?.data?.message || "Failed to generate interview questions. Please try again.");
@@ -230,7 +239,7 @@ function Step2Interview({ setStep, interviewData, setInterviewData }) {
         setTimeLeft(60);
         
         // Speak the next question
-        speakQuestion(updatedSession.questions[nextIndex].questionText);
+        speakQuestion(updatedSession.questions[nextIndex].questionText, selectedGender);
       }
     } catch (error) {
       console.error(error);
@@ -351,6 +360,7 @@ function Step2Interview({ setStep, interviewData, setInterviewData }) {
               ref={videoRef}
               src={selectedGender === "male" ? maleVideo : femaleVideo}
               loop
+              muted
               playsInline
               className="w-full h-full object-cover"
             />
