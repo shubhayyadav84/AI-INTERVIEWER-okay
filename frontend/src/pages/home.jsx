@@ -82,7 +82,7 @@ function Home() {
               }}
               whileHover={{ opacity: 0.9, scale: 1.03 }}
               whileTap={{ opacity: 1, scale: 0.98 }}
-              className="bg-black text-white dark:bg-white dark:text-black px-6 sm:px-10 py-2 sm:py-3 text-sm sm:text-base rounded-full hover:opacity-90 transition-all duration-300 shadow-md dark:hover:shadow-[0_0_25px_rgba(34,197,94,0.5)] cursor-pointer"
+              className="bg-black text-white dark:bg-white dark:text-black px-6 sm:px-10 py-2 sm:py-3 text-sm sm:text-base rounded-full hover:opacity-90 active:opacity-80 active:scale-95 transition-all duration-300 shadow-md dark:hover:shadow-[0_0_25px_rgba(34,197,94,0.5)] cursor-pointer"
             >
               Start Interview
             </motion.button>
@@ -97,7 +97,7 @@ function Home() {
               }}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              className="bg-white dark:bg-transparent dark:text-white dark:border-gray-700 border border-gray-200 px-6 sm:px-10 py-2 sm:py-3 text-sm sm:text-base rounded-full shadow-sm cursor-pointer transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-800/40 dark:hover:shadow-[0_0_15px_rgba(34,197,94,0.2)]"
+              className="bg-white dark:bg-transparent dark:text-white dark:border-gray-700 border border-gray-200 px-6 sm:px-10 py-2 sm:py-3 text-sm sm:text-base rounded-full shadow-sm cursor-pointer transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-800/40 dark:hover:shadow-[0_0_15px_rgba(34,197,94,0.2)] active:bg-gray-100 dark:active:bg-gray-700/40 active:shadow-none"
             >
               View History
             </motion.button>
@@ -138,7 +138,7 @@ function Home() {
                 transition={{ duration: 0.6 }}
                 whileHover={{ scale: 1.05 }}
                 className={`relative bg-white dark:bg-[#1c1c1e] rounded-3xl border-2 border-green-100/50 dark:border-green-950/40
-                p-6 sm:p-10 w-full sm:w-80 max-w-sm shadow-md hover:border-green-500 dark:hover:border-green-500 dark:hover:shadow-[0_0_30px_rgba(34,197,94,0.25)] transition-all duration-300
+                p-6 sm:p-10 w-full sm:w-80 max-w-sm shadow-md hover:border-green-500 dark:hover:border-green-500 dark:hover:shadow-[0_0_30px_rgba(34,197,94,0.25)] active:border-green-400 active:shadow-lg transition-all duration-300 cursor-pointer select-none
                 ${index === 0 ? "rotate-0 sm:-rotate-2 md:-rotate-3" : ""}
                 ${index === 1 ? "rotate-0 sm:rotate-1 md:rotate-2 md:-mt-6" : ""}
                 ${index === 2 ? "rotate-0 sm:-rotate-1 md:-rotate-2" : ""}`}
@@ -188,7 +188,7 @@ function Home() {
                 <motion.div
                   key={index}
                   whileHover={{ y: -6 }}
-                  className="bg-white dark:bg-[#1c1c1e] rounded-3xl p-4 sm:p-6 shadow-md flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 border border-gray-100 dark:border-gray-800 hover:border-green-400 dark:hover:border-green-500 dark:hover:shadow-[0_0_25px_rgba(34,197,94,0.2)] transition-all duration-300"
+                  className="bg-white dark:bg-[#1c1c1e] rounded-3xl p-4 sm:p-6 shadow-md flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 border border-gray-100 dark:border-gray-800 hover:border-green-400 dark:hover:border-green-500 dark:hover:shadow-[0_0_25px_rgba(34,197,94,0.2)] active:border-green-300 active:shadow-lg transition-all duration-300 cursor-pointer select-none"
                 >
                   <img
                     src={item.image}
@@ -238,7 +238,7 @@ function Home() {
                 <motion.div
                   key={index}
                   whileHover={{ scale: 1.02 }}
-                  className="bg-white dark:bg-[#1c1c1e] rounded-3xl p-4 sm:p-6 shadow-md flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 border border-gray-100 dark:border-gray-800 hover:border-green-400 dark:hover:border-green-500 dark:hover:shadow-[0_0_25px_rgba(34,197,94,0.2)] transition-all duration-300"
+                  className="bg-white dark:bg-[#1c1c1e] rounded-3xl p-4 sm:p-6 shadow-md flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 border border-gray-100 dark:border-gray-800 hover:border-green-400 dark:hover:border-green-500 dark:hover:shadow-[0_0_25px_rgba(34,197,94,0.2)] active:border-green-300 active:shadow-lg transition-all duration-300 cursor-pointer select-none"
                 >
                   <div className="flex-1">
                     <h3 className="font-semibold text-lg sm:text-xl dark:text-white">{item.title}</h3>

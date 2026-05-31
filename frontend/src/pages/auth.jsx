@@ -254,7 +254,7 @@ function Auth({ isModal = false }) {
             disabled={loading}
             whileHover={{ scale: loading ? 1 : 1.01 }}
             whileTap={{ scale: loading ? 1 : 0.98 }}
-            className="w-full flex items-center justify-center gap-3 py-3.5 bg-black dark:bg-white text-white dark:text-black rounded-xl shadow-md hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer font-bold disabled:opacity-60 disabled:cursor-not-allowed mt-6"
+            className="w-full flex items-center justify-center gap-3 py-3.5 bg-black dark:bg-white text-white dark:text-black rounded-xl shadow-md hover:opacity-90 active:scale-[0.95] active:opacity-80 transition-all cursor-pointer font-bold disabled:opacity-60 disabled:cursor-not-allowed mt-6 select-none"
           >
             {loading ? (
               <div className="flex items-center gap-2">

@@ -53,7 +53,7 @@ function Navbar() {
           {/* Theme switcher */}
           <button
             onClick={() => dispatch(toggleTheme())}
-            className="p-2 sm:p-2.5 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-200 transition-all cursor-pointer flex items-center justify-center shadow-sm"
+            className="p-2 sm:p-2.5 rounded-full bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:active:bg-gray-600 dark:text-gray-200 transition-all cursor-pointer flex items-center justify-center shadow-sm select-none"
             title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
           >
             {theme === "dark" ? <FiSun size={16} className="sm:block hidden" /> : <FiMoon size={16} className="sm:block hidden" />}
@@ -67,7 +67,7 @@ function Navbar() {
                 setShowCreditPopup(!showCreditPopup);
                 setShowUserPopup(false);
               }}
-              className="flex items-center gap-1 sm:gap-2 bg-gray-100 dark:bg-gray-800 px-2 sm:px-4 py-2 rounded-full text-sm sm:text-md hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-gray-200 transition"
+              className="flex items-center gap-1 sm:gap-2 bg-gray-100 dark:bg-gray-800 px-2 sm:px-4 py-2 rounded-full text-sm sm:text-md hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-gray-200 active:bg-gray-300 dark:active:bg-gray-600 transition select-none"
             >
               <BsCoin size={16} className="text-yellow-500 sm:hidden" />
               <BsCoin size={20} className="text-yellow-500 hidden sm:block" />
@@ -100,7 +100,7 @@ function Navbar() {
                 setShowUserPopup(!showUserPopup);
                 setShowCreditPopup(false);
               }}
-              className="w-8 h-8 sm:w-9 sm:h-9 bg-black dark:bg-white dark:text-black text-white rounded-full flex items-center justify-center font-semibold cursor-pointer text-xs sm:text-sm"
+              className="w-8 h-8 sm:w-9 sm:h-9 bg-black dark:bg-white dark:text-black text-white rounded-full flex items-center justify-center font-semibold cursor-pointer text-xs sm:text-sm hover:opacity-90 active:opacity-80 transition select-none"
             >
               {user
                 ? user?.name?.slice(0, 1).toUpperCase()

@@ -196,7 +196,7 @@ function PricingPage() {
               return (
                 <div
                   key={index}
-                  className={`bg-white dark:bg-[#1c1c1e] rounded-3xl p-5 sm:p-8 border transition-all duration-300 flex flex-col justify-between ${
+                  className={`bg-white dark:bg-[#1c1c1e] rounded-3xl p-5 sm:p-8 border transition-all duration-300 flex flex-col justify-between cursor-pointer select-none active:shadow-lg ${
                     plan.isFeatured
                       ? "border-green-500 border-2 shadow-lg"
                       : "border-gray-200 dark:border-gray-800"
@@ -255,7 +255,7 @@ function PricingPage() {
                       <button
                         onClick={plan.action}
                         disabled={loading}
-                        className={`w-full py-2.5 sm:py-3.5 rounded-2xl font-bold transition duration-205 text-xs sm:text-sm ${
+                        className={`w-full py-2.5 sm:py-3.5 rounded-2xl font-bold transition duration-205 text-xs sm:text-sm active:scale-95 active:shadow-inner select-none ${
                           isStarter
                             ? "bg-green-500 hover:bg-green-600 text-white shadow-md shadow-green-100 dark:shadow-none"
                             : "bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold"
