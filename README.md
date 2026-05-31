@@ -6,10 +6,14 @@
 ## Vercel deploy
 
 1. Import [AI-INTERVIEWER-okay](https://github.com/shubhayyadav84/AI-INTERVIEWER-okay)
-2. Add env vars: `DATABASE_URL`, `JWT_SECRET`, `OPENROUTER_API_KEY`, `FRONTEND_URL`
-3. Deploy
+2. **Framework Preset:** Other (uses `vercel.json` — static Vite build + `/api` serverless)
+3. Add env vars: `DATABASE_URL`, `JWT_SECRET`, `OPENROUTER_API_KEY`
+4. Deploy
 
-Health: `/api/health`
+- UI: `https://your-app.vercel.app/`
+- API health: `https://your-app.vercel.app/api/health`
+
+Do **not** set a root `server.js` on Vercel — frontend is served from `frontend/dist`.
 
 ## Local
 

@@ -76,10 +76,15 @@ app.use(async (req, res, next) => {
     next()
 })
 
-app.use("/api/auth", authRouter)
-app.use("/api/user", userRouter)
-app.use("/api/interview", interviewRouter)
-app.use("/api/payment", paymentRouter)
+const mountApi = (segment, router) => {
+    app.use(`/api${segment}`, router)
+    app.use(segment, router)
+}
+
+mountApi("/auth", authRouter)
+mountApi("/user", userRouter)
+mountApi("/interview", interviewRouter)
+mountApi("/payment", paymentRouter)
 
 const healthHandler = async (_req, res) => {
     try {
@@ -96,6 +101,7 @@ const healthHandler = async (_req, res) => {
 }
 
 app.get("/api/health", healthHandler)
+app.get("/health", healthHandler)
 
 app.use((err, _req, res, next) => {
     if (err?.message === "Not allowed by CORS") {
