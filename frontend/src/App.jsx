@@ -10,9 +10,8 @@ import PricingPage from './pages/pricing'
 import axios from 'axios'
 
 // Empty in production: frontend + API share the same host on Vercel
-export const serverurl =
-  import.meta.env.VITE_SERVER_URL ??
-  (import.meta.env.PROD ? "" : "http://localhost:5000")
+// Empty = same origin (Vercel) or Vite proxy to backend in dev
+export const serverurl = import.meta.env.VITE_SERVER_URL ?? ""
 
 function App() {
   const { user, loading, theme } = useSelector((state) => state.user)

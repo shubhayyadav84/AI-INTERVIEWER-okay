@@ -1,14 +1,13 @@
 {
-  "name": "server",
-  "version": "1.0.0",
+  "name": "ai-interviewer-backend",
+  "private": true,
   "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
-    "axios": "^1.16.1",
     "bcryptjs": "^3.0.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
