@@ -98,7 +98,7 @@ function Auth({ isModal = false }) {
       className={
         isModal
           ? "relative w-full flex items-center justify-center"
-          : "relative w-full min-h-screen bg-[#f3f3f3] dark:bg-[#121212] flex items-center justify-center px-6 py-20 overflow-hidden transition-colors duration-300"
+          : "relative w-full min-h-screen bg-[#f3f3f3] dark:bg-[#121212] flex items-center justify-center px-3 py-12 sm:px-6 sm:py-20 overflow-hidden transition-colors duration-300"
       }
     >
       {/* Premium Glowing Backdrops */}
@@ -119,7 +119,7 @@ function Auth({ isModal = false }) {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="w-full max-w-md p-8 md:p-10 rounded-3xl bg-white dark:bg-[#1c1c1e] shadow-2xl border border-gray-200 dark:border-gray-800 z-10 relative transition-colors duration-300"
+        className="w-full max-w-md p-5 sm:p-8 md:p-10 rounded-3xl bg-white dark:bg-[#1c1c1e] shadow-2xl border border-gray-200 dark:border-gray-800 z-10 relative transition-colors duration-300"
       >
         {/* Logo */}
         <div className="flex items-center justify-center gap-3 mb-6">

@@ -159,18 +159,19 @@ function PricingPage() {
 
   return (
     <div className="min-h-screen bg-[#f3f3f3] dark:bg-[#121212] flex flex-col transition-colors duration-300">
-      <div className="flex-grow py-16 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+      <div className="flex-grow py-8 sm:py-16 px-3 sm:px-4 md:px-6 lg:px-8 flex flex-col items-center">
         <div className="max-w-6xl w-full">
           {/* Header */}
-          <div className="flex items-center gap-4 mb-12">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-8 sm:mb-12 w-full">
             <button
               onClick={() => navigate("/home")}
-              className="p-3 bg-white dark:bg-[#1c1c1e] hover:bg-gray-105 dark:hover:bg-gray-800 rounded-full border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-200 shadow-sm transition duration-200 cursor-pointer flex items-center justify-center"
+              className="p-2 sm:p-3 bg-white dark:bg-[#1c1c1e] hover:bg-gray-105 dark:hover:bg-gray-800 rounded-full border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-200 shadow-sm transition duration-200 cursor-pointer flex items-center justify-center flex-shrink-0"
             >
-              <FaArrowLeft size={16} />
+              <FaArrowLeft size={14} className="sm:hidden" />
+              <FaArrowLeft size={16} className="hidden sm:block" />
             </button>
-            <div>
-              <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">Choose Your Plan</h1>
+            <div className="flex-1">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">Choose Your Plan</h1>
               <p className="text-gray-500 dark:text-gray-400 mt-1 text-sm font-medium">
                 Flexible pricing to match your interview preparation goals.
               </p>
@@ -188,14 +189,14 @@ function PricingPage() {
           )}
 
           {/* Pricing Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch mt-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 items-stretch mt-6 sm:mt-8 max-w-5xl mx-auto w-full">
             {plans.map((plan, index) => {
               const isFree = plan.name === "Free";
               const isStarter = plan.name === "Starter Pack";
               return (
                 <div
                   key={index}
-                  className={`bg-white dark:bg-[#1c1c1e] rounded-3xl p-8 border transition-all duration-300 flex flex-col justify-between ${
+                  className={`bg-white dark:bg-[#1c1c1e] rounded-3xl p-5 sm:p-8 border transition-all duration-300 flex flex-col justify-between ${
                     plan.isFeatured
                       ? "border-green-500 border-2 shadow-lg"
                       : "border-gray-200 dark:border-gray-800"
@@ -203,46 +204,46 @@ function PricingPage() {
                 >
                   {/* Card Header: Name and Badge */}
                   <div>
-                    <div className="flex justify-between items-center">
-                      <h3 className="text-xl font-bold text-gray-800 dark:text-white">{plan.name}</h3>
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                      <h3 className="text-lg sm:text-xl font-bold text-gray-800 dark:text-white">{plan.name}</h3>
                       {plan.name === "Free" && (
-                        <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+                        <span className="text-[8px] sm:text-[10px] font-bold uppercase tracking-wider px-2 sm:px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-center">
                           Default
                         </span>
                       )}
                       {plan.name === "Pro Pack" && (
-                        <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-green-500 text-white">
+                        <span className="text-[8px] sm:text-[10px] font-bold uppercase tracking-wider px-2 sm:px-3 py-1 rounded-full bg-green-500 text-white text-center">
                           Best Value
                         </span>
                       )}
                     </div>
 
                     {/* Pricing stacked vertically */}
-                    <div className="mt-6">
-                      <div className="text-4xl font-extrabold text-green-500 tracking-tight">
+                    <div className="mt-4 sm:mt-6">
+                      <div className="text-3xl sm:text-4xl font-extrabold text-green-500 tracking-tight">
                         {plan.cost}
                       </div>
-                      <div className="text-sm font-semibold text-gray-400 dark:text-gray-500 mt-1">
+                      <div className="text-xs sm:text-sm font-semibold text-gray-400 dark:text-gray-500 mt-1">
                         {plan.credits}
                       </div>
                     </div>
 
                     {/* Description */}
-                    <p className="mt-4 text-xs text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
+                    <p className="mt-3 sm:mt-4 text-xs text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
                       {plan.description}
                     </p>
 
                     {/* Divider line */}
-                    <div className="w-full h-px bg-gray-150 dark:bg-gray-800 my-6"></div>
+                    <div className="w-full h-px bg-gray-150 dark:bg-gray-800 my-4 sm:my-6"></div>
 
                     {/* Features List */}
-                    <ul className="space-y-4">
+                    <ul className="space-y-2 sm:space-y-4">
                       {plan.features.map((feature, idx) => (
                         <li key={idx} className="flex items-start gap-3">
                           <span className="p-0.5 bg-green-50 dark:bg-green-950/20 text-green-600 dark:text-green-400 rounded-full shrink-0 mt-0.5 border border-green-200 dark:border-green-900/40 flex items-center justify-center">
                             <FaCheck size={8} />
                           </span>
-                          <span className="text-xs text-gray-650 dark:text-gray-300 font-semibold">{feature}</span>
+                          <span className="text-[7px] sm:text-xs text-gray-650 dark:text-gray-300 font-semibold">{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -250,11 +251,11 @@ function PricingPage() {
 
                   {/* Action Button (Omitted on Free to match screenshot) */}
                   {!isFree && (
-                    <div className="mt-8">
+                    <div className="mt-6 sm:mt-8">
                       <button
                         onClick={plan.action}
                         disabled={loading}
-                        className={`w-full py-3.5 rounded-2xl font-bold transition duration-205 text-sm ${
+                        className={`w-full py-2.5 sm:py-3.5 rounded-2xl font-bold transition duration-205 text-xs sm:text-sm ${
                           isStarter
                             ? "bg-green-500 hover:bg-green-600 text-white shadow-md shadow-green-100 dark:shadow-none"
                             : "bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold"
